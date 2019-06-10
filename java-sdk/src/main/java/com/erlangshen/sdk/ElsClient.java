@@ -18,12 +18,12 @@ public class ElsClient {
     private String ak;
     private String sk;
 
-    ElsClient(String ak, String sk) {
+    public ElsClient(String ak, String sk) {
         this.ak = ak;
         this.sk = sk;
     }
 
-    ElsClient(String ak, String sk, String host) {
+    public ElsClient(String ak, String sk, String host) {
         this.ak = ak;
         this.sk = sk;
         this.host = host;
