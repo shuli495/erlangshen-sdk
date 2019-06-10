@@ -1,15 +1,17 @@
 package com.erlangshen.sdk.result;
 
 
-public class BooleanResult extends Result {
+public class BooleanResult extends Result implements com.erlangshen.sdk.result.interfaces.Result<Boolean> {
 
-    private boolean data;
+    private Boolean data;
 
-    public boolean getData() {
+    @Override
+    public Boolean getData() {
         return data;
     }
 
-    public void setData(boolean data) {
+    @Override
+    public void setData(Boolean data) {
         this.data = data;
     }
 }
