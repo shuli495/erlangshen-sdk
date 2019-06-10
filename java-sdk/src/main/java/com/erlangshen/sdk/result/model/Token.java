@@ -6,10 +6,19 @@ public class Token {
 
     private String id;
     private String userId;
-    private Date activeTime;    //有效时间
-    private String ip;          //客户端ip
+
+    /**
+     * 有效时间
+     */
+    private Date activeTime;
+
+    private String ip;
     private Date createdTime;
-    private String platform;    //登录端 用于区分在不同平台是否可以重复登录
+
+    /**
+     * 登录端 用于区分在不同平台是否可以重复登录
+     */
+    private String platform;
 
     public String getId() {
         return id;

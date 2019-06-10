@@ -14,14 +14,19 @@ import java.util.Map;
  */
 public class ElsClient {
 
-//    private final String host = "https://erlangshen.pighand.com/service";
-    private final String host = "http://localhost:8081/erlangshen";
+    private String host = "https://erlangshen.pighand.com/service";
     private String ak;
     private String sk;
 
-    public ElsClient(String ak, String sk) {
+    ElsClient(String ak, String sk) {
         this.ak = ak;
         this.sk = sk;
+    }
+
+    ElsClient(String ak, String sk, String host) {
+        this.ak = ak;
+        this.sk = sk;
+        this.host = host;
     }
 
     /**
@@ -144,7 +149,7 @@ public class ElsClient {
             throw new Exception("mail或userId至少传一个");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(5);
         params.put("type", type);
 
         if(null != mail && !"".equals(mail)) {
@@ -183,7 +188,7 @@ public class ElsClient {
             throw new Exception("phone或userId至少传一个");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(5);
         params.put("type", type);
 
         if(null != phone && !"".equals(phone)) {
@@ -225,7 +230,7 @@ public class ElsClient {
             throw new Exception("邮箱或手机或userId必须填一个");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(5);
         params.put("code", code);
         params.put("type", type);
 
@@ -285,7 +290,7 @@ public class ElsClient {
             throw new Exception("登录IP不能为空");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(5);
         params.put("username", username);
         params.put("pwd", pwd);
         params.put("loginIp", loginIp);
@@ -312,7 +317,7 @@ public class ElsClient {
             throw new Exception("登录IP不能为空");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(1);
         params.put("loginIp", loginIp);
 
         String result = new Http(host, "/token", null, params, ak, sk).get();
@@ -358,7 +363,7 @@ public class ElsClient {
      * @return UserList
      */
     public UserList userList(String mail, String phone, String username, String nikename) throws Exception {
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(4);
 
         if(null != mail && !"".equals(mail)) {
             params.put("mail", mail);
@@ -399,7 +404,7 @@ public class ElsClient {
             throw new Exception("用户ID不能为空");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(4);
 
         if(null != name && !"".equals(name)) {
             params.put("name", name);
@@ -458,7 +463,7 @@ public class ElsClient {
      * @throws Exception
      */
     public PermissionList permissionListByClient(String role) throws Exception {
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(1);
 
         if(null != role && !"".equals(role)) {
             params.put("role", role);
@@ -498,7 +503,7 @@ public class ElsClient {
             throw new Exception("用户权限不能为空");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(1);
         params.put("roles", roleIds);
 
         String result = new Http(host, "/permissionRole/user/" + userId, null, params, ak, sk).post();
@@ -520,7 +525,7 @@ public class ElsClient {
             throw new Exception("用户权限不能为空");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(1);
         params.put("roles", roleIds);
 
         String result = new Http(host, "/permissionRole/user/" + userId, null, params, ak, sk).delete();
@@ -539,7 +544,7 @@ public class ElsClient {
             throw new Exception("groupId或parentId至少传一个");
         }
 
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>(2);
         if(null != groupId && !"".equals(groupId)) {
             params.put("groupId", groupId);
         }

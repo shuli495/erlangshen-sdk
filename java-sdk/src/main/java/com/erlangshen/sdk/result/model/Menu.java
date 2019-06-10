@@ -6,16 +6,24 @@ public class Menu {
 
     private Integer parentId;
 
-    // 0菜单 1功能
+    /**
+     * 0菜单 1功能
+     */
     private Integer type;
 
-    // 菜单名称
+    /**
+     * 菜单名称
+     */
     private String name;
 
-    // 菜单url
+    /**
+     * 菜单url
+     */
     private String url;
 
-    // 标签
+    /**
+     * 标签
+     */
     private String tag;
 
     public Integer getId() {

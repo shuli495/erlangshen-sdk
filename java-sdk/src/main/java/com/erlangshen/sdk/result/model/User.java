@@ -4,84 +4,139 @@ import java.util.Date;
 
 public class User {
 
-    // 登录成功后获得的token
+    /**
+     * 登录成功后获得的token
+     */
     private Token token;
 
     private String id;
 
-    //客户端id
+    /**
+     * 客户端id
+     */
     private String clientId;
 
-    //密码
+    /**
+     * 密码
+     */
     private String pwd;
 
-    //用户名
+    /**
+     * 用户名
+     */
     private String username;
 
-    //邮箱
+    /**
+     * 邮箱
+     */
     private String mail;
 
-    //邮箱是否验证 0未验证 1已验证
+    /**
+     * 邮箱是否验证 0未验证 1已验证
+     */
     private Integer mailVerify;
 
-    //手机号码
+    /**
+     * 手机号码
+     */
     private String phone;
 
-    // 手机号码是否验证 0未验证 1已验证
+    /**
+     * 手机号码是否验证 0未验证 1已验证
+     */
     private Integer phoneVerify;
 
     private Integer status;
 
-    // 来源
+    /**
+     * 来源
+     */
     private String source;
 
-    // 昵称
+    /**
+     * 昵称
+     */
     private String nickname;
 
-    // 电话
+    /**
+     * 电话
+     */
     private String tel;
 
-    // QQ
+    /**
+     * QQ
+     */
     private String qq;
 
-    // 微信
+    /**
+     * 微信
+     */
     private String weixin;
 
-    // 新浪微博
+    /**
+     * 新浪微博
+     */
     private String weibo;
 
-    // 姓名
+    /**
+     * 姓名
+     */
     private String name;
 
-    // 性别 0女 1男
+    /**
+     * 性别 0女 1男
+     */
     private Boolean sex;
 
-    // 身份证号
+    /**
+     * 身份证号
+     */
     private String idcard;
 
-    // 实名认证 0未实名 1认证中 2认证失败 3认证成功
+    /**
+     * 实名认证 0未实名 1认证中 2认证失败 3认证成功
+     */
     private Integer certification;
 
-    // 实名认证失败原因
+    /**
+     * 实名认证失败原因
+     */
     private String certificationFailMsg;
 
-    // 省
+    /**
+     * 省
+     */
     private String province;
 
-    // 市
+    /**
+     * 市
+     */
     private String city;
 
-    // 区
+    /**
+     * 区
+     */
     private String area;
 
-    // 地址
+    /**
+     * 地址
+     */
     private String address;
 
-    // 创建时间
+    /**
+     * 创建时间
+     */
     private Date createdTime;
 
-    // 创建成后后自动登录
+    /**
+     * 创建成后后自动登录
+     */
     private Boolean autoLogin;
+
+    /**
+     * 验证码
+     */
+    private String verifyCode;
 
     public Token getToken() {
         return token;
@@ -297,5 +352,13 @@ public class User {
 
     public void setAutoLogin(Boolean autoLogin) {
         this.autoLogin = autoLogin;
+    }
+
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 }
