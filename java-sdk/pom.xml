@@ -12,11 +12,11 @@
     <parent>
         <groupId>com.erlangshen</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <properties>
-        <fastjson.version>1.2.7</fastjson.version>
+        <fastjson.version>1.2.47</fastjson.version>
 
         <jdk.version>1.8</jdk.version>
         <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
