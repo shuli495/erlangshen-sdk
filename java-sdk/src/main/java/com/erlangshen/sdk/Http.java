@@ -3,6 +3,7 @@ package com.erlangshen.sdk;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
@@ -105,17 +106,20 @@ public class Http {
                 out.flush();
             }
 
-            in = new BufferedReader(new InputStreamReader(
-                    conn.getInputStream(),"utf-8"));
+            conn.connect();
+            InputStream is = null;
+            if(conn.getResponseCode() >= 400) {
+                is = conn.getErrorStream();
+            } else {
+                is = conn.getInputStream();
+            }
+            in = new BufferedReader(new InputStreamReader(is,"utf-8"));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;
             }
         } catch (Exception e) {
-            if(e.getMessage().indexOf("401") != -1) {
-                throw new Exception("AK/SK错误");
-            }
-            e.printStackTrace();
+            throw e;
         } finally {
             try{
                 if(out!=null){

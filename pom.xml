@@ -7,7 +7,7 @@
     <groupId>com.erlangshen</groupId>
     <artifactId>sdk</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
      <modules>
          <module>java-sdk</module>
      </modules>
