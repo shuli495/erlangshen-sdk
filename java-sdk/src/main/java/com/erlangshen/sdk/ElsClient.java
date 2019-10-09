@@ -62,7 +62,7 @@ public class ElsClient {
             throw new Exception("邮箱必填");
         }
 
-        UserList users = this.userList(mail, "", "", "");
+        UserListResult users = this.userList(mail, "", "", "");
 
         if(users.getData().size() > 0) {
          return true;
@@ -82,7 +82,7 @@ public class ElsClient {
             throw new Exception("手机号码必填");
         }
 
-        UserList users = this.userList("", phone, "", "");
+        UserListResult users = this.userList("", phone, "", "");
 
         if(users.getData().size() > 0) {
             return true;
@@ -102,7 +102,7 @@ public class ElsClient {
             throw new Exception("用户名必填");
         }
 
-        UserList users = this.userList("", "", username, "");
+        UserListResult users = this.userList("", "", username, "");
 
         if(users.getData().size() > 0) {
             return true;
@@ -122,7 +122,7 @@ public class ElsClient {
             throw new Exception("昵称必填");
         }
 
-        UserList users = this.userList("", "", "", nikename);
+        UserListResult users = this.userList("", "", "", nikename);
 
         if(users.getData().size() > 0) {
             return true;
@@ -270,16 +270,37 @@ public class ElsClient {
     }
 
     /**
+     * 修改密码、重置密码
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public Result rePwd(User user) throws Exception {
+        if(null == user.getId() && null == user.getUsername() && null == user.getMail() && null == user.getPhone()) {
+            throw new Exception("请输入账号");
+        }
+        if(null == user.getPwd()) {
+            throw new Exception("请输入新密码");
+        }
+        if(null == user.getCode() && null == user.getOldPwd()) {
+            throw new Exception("验证码或原密码必传一个!");
+        }
+
+        String result = new Http(host, "/user/rePwd", null, user, ak, sk).post();
+        return JSONObject.parseObject(result, Result.class);
+    }
+
+    /**
      * 用户登录、获取token
      * @param username
      * @param pwd
-     * @param code      登录验证码
+     * @param robotCode      登录验证码
      * @param platform  登录平台
      * @param loginIp   登录客户端IP
      * @return UserDetail
      * @throws Exception
      */
-    public UserDetail login(String username, String pwd, String code, String platform, String loginIp) throws Exception {
+    public UserDetailResult login(String username, String pwd, String robotCode, String platform, String loginIp) throws Exception {
         if(null == username || "".equals(username)) {
             throw new Exception("用户名不能为空");
         }
@@ -295,32 +316,50 @@ public class ElsClient {
         params.put("pwd", pwd);
         params.put("loginIp", loginIp);
 
-        if(null != code && !"".equals(code)) {
-            params.put("code", code);
+        if(null != robotCode && !"".equals(robotCode)) {
+            params.put("robotCode", robotCode);
         }
         if(null != platform && !"".equals(platform)) {
             params.put("platform", platform);
         }
 
         String result = new Http(host, "/token", null, params, ak, sk).post();
-        return JSONObject.parseObject(result, UserDetail.class);
+        return JSONObject.parseObject(result, UserDetailResult.class);
     }
 
     /**
-     * 获取登录验证码
-     * @param loginIp
+     * 校验token
+     * @param token
+     * @return UserDetail
+     * @throws Exception
+     */
+    public UserDetailResult checkToken(String token) throws Exception {
+        if(null == token || "".equals(token)) {
+            throw new Exception("请输入token");
+        }
+        Map<String, Object> params = new HashMap<>(5);
+        params.put("token", token);
+
+        String result = new Http(host, "/token", null, params, ak, sk).put();
+        return JSONObject.parseObject(result, UserDetailResult.class);
+    }
+
+    /**
+     * 获取防刷验证码验证码
+     * @param username
      * @return Result
      * @throws Exception
      */
-    public Result getLoginCode(String loginIp) throws Exception {
-        if(null == loginIp || "".equals(loginIp)) {
+    public Result getRobotCode(String username) throws Exception {
+        if(null == username || "".equals(username)) {
             throw new Exception("登录IP不能为空");
         }
 
         Map<String, Object> params = new HashMap<>(1);
-        params.put("loginIp", loginIp);
+        params.put("type", "robot");
+        params.put("flag", username);
 
-        String result = new Http(host, "/token", null, params, ak, sk).get();
+        String result = new Http(host, "/code/verify", null, params, ak, sk).get();
         return JSONObject.parseObject(result, Result.class);
     }
 
@@ -330,13 +369,13 @@ public class ElsClient {
      * @return UserDetail
      * @throws Exception
      */
-    public UserDetail detail(String userId) throws Exception {
+    public UserDetailResult detail(String userId) throws Exception {
         if(null == userId || "".equals(userId)) {
             throw new Exception("用户ID不能为空");
         }
 
         String result = new Http(host, "/user/"+userId, null, null, ak, sk).get();
-        return JSONObject.parseObject(result, UserDetail.class);
+        return JSONObject.parseObject(result, UserDetailResult.class);
     }
 
     /**
@@ -345,13 +384,13 @@ public class ElsClient {
      * @return Result
      * @throws Exception
      */
-    public Result updateDetail(User user) throws Exception {
+    public UserDetailResult updateDetail(User user) throws Exception {
         if(null == user.getId() || "".equals(user.getId())) {
             throw new Exception("用户ID不能为空");
         }
 
         String result = new Http(host, "/user/"+user.getId(), null, user, ak, sk).get();
-        return JSONObject.parseObject(result, UserDetail.class);
+        return JSONObject.parseObject(result, UserDetailResult.class);
     }
 
     /**
@@ -362,7 +401,7 @@ public class ElsClient {
      * @param nikename  昵称
      * @return UserList
      */
-    public UserList userList(String mail, String phone, String username, String nikename) throws Exception {
+    public UserListResult userList(String mail, String phone, String username, String nikename) throws Exception {
         Map<String, Object> params = new HashMap<>(4);
 
         if(null != mail && !"".equals(mail)) {
@@ -382,7 +421,7 @@ public class ElsClient {
         }
 
         String result = new Http(host, "/user", null, params, ak, sk).get();
-        return JSONObject.parseObject(result, UserList.class);
+        return JSONObject.parseObject(result, UserListResult.class);
     }
 
     /**
@@ -398,8 +437,8 @@ public class ElsClient {
      * @throws Exception
      */
     public Result certification(String userId, String name, String idcard,
-                                FileInputStream forntFile, FileInputStream backFile,
-                                FileInputStream holdForntFile, FileInputStream holdBackFile) throws Exception {
+                                    FileInputStream forntFile, FileInputStream backFile,
+                                    FileInputStream holdForntFile, FileInputStream holdBackFile) throws Exception {
         if(null == userId || "".equals(userId)) {
             throw new Exception("用户ID不能为空");
         }
@@ -442,7 +481,7 @@ public class ElsClient {
         CertificationDetail certificationDetail = JSONObject.parseObject(result, CertificationDetail.class);
 
         // 用户详情
-        UserDetail userDetail = this.detail(userId);
+        UserDetailResult userDetail = this.detail(userId);
         if(!"success".equals(userDetail.getStatus())) {
             throw new Exception("用户不存在");
         }
@@ -462,7 +501,7 @@ public class ElsClient {
      * @return PermissionList
      * @throws Exception
      */
-    public PermissionList permissionListByClient(String role) throws Exception {
+    public PermissionResult permissionListByClient(String role) throws Exception {
         Map<String, Object> params = new HashMap<>(1);
 
         if(null != role && !"".equals(role)) {
@@ -470,7 +509,7 @@ public class ElsClient {
         }
 
         String result = new Http(host, "/permissionRole", null, params, ak, sk).get();
-        return JSONObject.parseObject(result, PermissionList.class);
+        return JSONObject.parseObject(result, PermissionResult.class);
     }
 
     /**
@@ -479,13 +518,13 @@ public class ElsClient {
      * @return PermissionList
      * @throws Exception
      */
-    public PermissionList permissionList(String userId) throws Exception {
+    public PermissionResult permissionList(String userId) throws Exception {
         if(null == userId || "".equals(userId)) {
             throw new Exception("用户ID不能为空");
         }
 
         String result = new Http(host, "/permissionRole/user/" + userId, null, null, ak, sk).get();
-        return JSONObject.parseObject(result, PermissionList.class);
+        return JSONObject.parseObject(result, PermissionResult.class);
     }
 
     /**

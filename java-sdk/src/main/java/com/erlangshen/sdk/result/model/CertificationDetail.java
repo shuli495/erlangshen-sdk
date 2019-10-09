@@ -1,8 +1,8 @@
 package com.erlangshen.sdk.result.model;
 
-import com.erlangshen.sdk.result.Result;
+import com.erlangshen.sdk.result.BaseResult;
 
-public class CertificationDetail extends Result {
+public class CertificationDetail extends BaseResult {
 
     private Certification data;
 

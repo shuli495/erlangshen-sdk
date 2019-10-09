@@ -1,7 +1,7 @@
 package com.erlangshen.sdk.result;
 
 
-public class BooleanResult extends Result implements com.erlangshen.sdk.result.interfaces.Result<Boolean> {
+public class BooleanResult extends BaseResult implements com.erlangshen.sdk.result.interfaces.Result<Boolean> {
 
     private Boolean data;
 

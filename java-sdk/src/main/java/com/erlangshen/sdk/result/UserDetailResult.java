@@ -2,7 +2,7 @@ package com.erlangshen.sdk.result;
 
 import com.erlangshen.sdk.result.model.User;
 
-public class UserDetail extends Result implements com.erlangshen.sdk.result.interfaces.Result<User> {
+public class UserDetailResult extends BaseResult implements com.erlangshen.sdk.result.interfaces.Result<User> {
 
     private User data;
 

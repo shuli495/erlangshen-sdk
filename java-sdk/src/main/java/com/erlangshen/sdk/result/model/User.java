@@ -22,6 +22,11 @@ public class User {
     private String pwd;
 
     /**
+     * 原密码
+     */
+    private String oldPwd;
+
+    /**
      * 用户名
      */
     private String username;
@@ -134,9 +139,21 @@ public class User {
     private Boolean autoLogin;
 
     /**
-     * 验证码
+     * 取消生成机器人验证码
      */
-    private String verifyCode;
+    private Boolean calanceRobotCode;
+
+    /**
+     * 人机校验验证码
+     */
+    private String robotCode;
+
+    /**
+     * 注册验证码
+     */
+    private String code;
+
+    private String codeImage;
 
     public Token getToken() {
         return token;
@@ -168,6 +185,14 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public String getOldPwd() {
+        return oldPwd;
+    }
+
+    public void setOldPwd(String oldPwd) {
+        this.oldPwd = oldPwd;
     }
 
     public String getUsername() {
@@ -354,11 +379,35 @@ public class User {
         this.autoLogin = autoLogin;
     }
 
-    public String getVerifyCode() {
-        return verifyCode;
+    public Boolean getCalanceRobotCode() {
+        return calanceRobotCode;
     }
 
-    public void setVerifyCode(String verifyCode) {
-        this.verifyCode = verifyCode;
+    public void setCalanceRobotCode(Boolean calanceRobotCode) {
+        this.calanceRobotCode = calanceRobotCode;
+    }
+
+    public String getRobotCode() {
+        return robotCode;
+    }
+
+    public void setRobotCode(String robotCode) {
+        this.robotCode = robotCode;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCodeImage() {
+        return codeImage;
+    }
+
+    public void setCodeImage(String codeImage) {
+        this.codeImage = codeImage;
     }
 }

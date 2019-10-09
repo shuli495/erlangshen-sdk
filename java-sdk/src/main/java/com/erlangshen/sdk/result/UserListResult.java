@@ -4,7 +4,7 @@ import com.erlangshen.sdk.result.model.User;
 
 import java.util.List;
 
-public class UserList extends Result implements com.erlangshen.sdk.result.interfaces.Result<List<User>> {
+public class UserListResult extends BaseResult implements com.erlangshen.sdk.result.interfaces.Result<List<User>> {
 
     private List<User> data;
 

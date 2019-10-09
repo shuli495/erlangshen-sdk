@@ -6,6 +6,8 @@ public class Register {
 
     private String token;
 
+    private String codeImage;
+
     public String getId() {
         return id;
     }
@@ -20,5 +22,13 @@ public class Register {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getCodeImage() {
+        return codeImage;
+    }
+
+    public void setCodeImage(String codeImage) {
+        this.codeImage = codeImage;
     }
 }
